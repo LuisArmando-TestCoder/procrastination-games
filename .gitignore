@@ -1,3 +1,6 @@
+# out directory
+lib
+
 # Logs
 logs
 *.log

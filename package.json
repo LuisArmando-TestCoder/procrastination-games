@@ -1,0 +1,24 @@
+{
+  "name": "procrastination-games",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuisArmando-TestCoder/procrastination-games.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuisArmando-TestCoder/procrastination-games/issues"
+  },
+  "homepage": "https://github.com/LuisArmando-TestCoder/procrastination-games#readme",
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}
