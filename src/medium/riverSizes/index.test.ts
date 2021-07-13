@@ -26,7 +26,7 @@
 
  import riverSizes from '.';
 
- test('The subsequences are correctly spotted', () => {
+test('Having an output with the expected river lengths', () => {
      expect(
         riverSizes(
             [
