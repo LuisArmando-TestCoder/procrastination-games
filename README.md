@@ -1,6 +1,6 @@
 # procrastination-games
 
-Just playing around with code games
+Just playing with code
 
 ```bash
 npm jest
