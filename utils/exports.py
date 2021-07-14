@@ -34,6 +34,7 @@ def setFolderExports(folderNames, additional = ''):
         createIndexExportFile(folderPath, additional)
 
 setFolderExports([
+    '',
     'easy',
     'medium',
     'hard',
