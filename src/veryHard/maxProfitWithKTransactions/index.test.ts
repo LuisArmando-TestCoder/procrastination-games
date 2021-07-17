@@ -34,6 +34,10 @@
  * 
  */
 
+import maxProfitWithKTransactions from '.'
+
 test('Get the best max profit with k transactions', () => {
-    // Tests here
+    expect(
+        maxProfitWithKTransactions([5, 11, 3, 50, 60, 90], 2)
+    ).toBe(93)
 })
