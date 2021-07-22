@@ -1,0 +1,1 @@
+export default (n: number) => n - +(n > 0) - +(n > 13)
