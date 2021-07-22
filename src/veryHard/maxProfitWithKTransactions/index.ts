@@ -70,5 +70,5 @@ export default (stockPrices: number[], transactionsAmount: number) => {
     const allPosibleProfits = getAllPosibleProfits({buys, sells, transactionsAmount})
     const [maximumProfit] = allPosibleProfits.sort((a, b) => b - a)
 
-    return maximumProfit
+    return maximumProfit || 0
 }
