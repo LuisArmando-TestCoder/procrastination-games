@@ -20,33 +20,33 @@ test('The subsequences are correctly spotted', () => {
             array,
             [1, 6, -1, 10]
         )
-    ).toBe(true)
+    ).toBeTruthy()
 
     expect(
         validateSubsequence(
             array,
             [5, 1, 22, 25, 6, -1, 8, 10, 12]
         )
-    ).toBe(false)
+    ).toBeFalsy()
 
     expect(
         validateSubsequence(
             array,
             [1, 6, -1, 10, 11, 11, 11, 11]
         )
-    ).toBe(false)
+    ).toBeFalsy()
 
     expect(
         validateSubsequence(
             array,
             [1, 6, -1, -1]
         )
-    ).toBe(false)
+    ).toBeFalsy()
 
     expect(
         validateSubsequence(
             array,
             [1, 6, 10]
         )
-    ).toBe(true)
+    ).toBeTruthy()
 })
