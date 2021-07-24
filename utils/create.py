@@ -1,10 +1,6 @@
 import os
 
-def createFile(difficulty, name, file, content = ""):
-    path = f"../src/{difficulty}/{name}"
-
-    os.mkdir(path)
-
+def createFile(path, file, content = ""):
     file = open(f"{path}/{file}", "w")
 
     file.write(content)
@@ -12,13 +8,14 @@ def createFile(difficulty, name, file, content = ""):
 
 difficulty = input("Difficulty: ").strip()
 name = input("cammelCaseChallengeName: ").strip()
+path = f"../src/{difficulty}/{name}"
 
-createFile(difficulty, name, "challenge.md")
-createFile(difficulty, name, "index.ts", "export default () => 0")
+os.mkdir(path)
+
+createFile(path, "challenge.md")
+createFile(path, "index.ts", "export default () => 0")
 createFile(
-    difficulty,
-    name,
+    path,
     "index.test.ts",
-    f"import {name} from '.'\n\nexpect('', () => null)"
+    f"import {name} from '.'\n\ntest('', () => null)"
 )
-createFile(difficulty, name, "solution.md")
