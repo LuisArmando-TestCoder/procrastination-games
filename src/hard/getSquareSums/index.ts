@@ -74,7 +74,7 @@ export default (n: number): number[] | false => {
 
     populateBranches({ paths, branches })
 
-    const squareSumsRow = branches.find(branch => branch.length === n)
+    const [squareSumsRow] = branches.sort((a, b) => b.length - a.length)
 
     return squareSumsRow || !!squareSumsRow
 }
