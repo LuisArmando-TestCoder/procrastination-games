@@ -24,7 +24,9 @@ When sorted in ascending order array looks like this
 
 Sum of each 2 consecutive numbers is a perfect square
 
-   16    16     16     16     16     16     1
+```
+
+   16    16     16     16     16     16     16
 
    /+\   /+\    /+\    /+\    /+\    /+\    /+\
 
@@ -33,6 +35,8 @@ Sum of each 2 consecutive numbers is a perfect square
       \+/    \+/    \+/    \+/    \+/    \+/    \+/
 
        9     25      9     25      9     25      9
+
+```
 
 9 = 3 * 3
 
