@@ -1,3 +1,5 @@
+https://www.codewars.com/kata/574b3b1599d8f897470018f6
+
 Americans are odd people: in their buildings,
 the first floor is actually the ground floor
 and there is no 13th floor (due to superstition).

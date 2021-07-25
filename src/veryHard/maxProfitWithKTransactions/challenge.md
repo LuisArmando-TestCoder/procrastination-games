@@ -1,3 +1,5 @@
+https://www.algoexpert.io/questions/Max%20Profit%20With%20K%20Transactions
+
 You're given an array of positive integers
 representing the prices of a single stock
 on various days (each index in the array

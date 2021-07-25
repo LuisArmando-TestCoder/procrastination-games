@@ -1,3 +1,5 @@
+https://www.codewars.com/kata/5a667236145c462103000091
+
 Write function that, given an integer number N,
 returns array of integers 1..N arranged in a way,
 so sum of each 2 consecutive numbers is a square.
