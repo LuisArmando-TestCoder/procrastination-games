@@ -20,18 +20,32 @@ function getRootsPaths(n: number): number[][] {
     return rootPaths
 }
 
-function getInitialBranch(paths: number[][]): number[][] {
+function getInitialBranches(paths: number[][]): number[][] {
     const pathBranches: number[][] = []
-
+    // tomar el path más ´pequenño y su index + 1
     for (let index = 0; index < paths.length; index++) {
         const path = paths[index]
-        const [firstBranch] = path 
+        const pathNode = index + 1
+        const setInitialBranches = () => {
+            pathBranches.splice(0)            
+            path.forEach((branch, index) => {
+                pathBranches[index] = []
+                pathBranches[index][0] = pathNode
+                pathBranches[index][1] = branch
+            })
+        }
+
+        if (!pathBranches[0]) {
+            setInitialBranches()
+        }
+
+        if (pathBranches.some(pathBranch => (
+            pathBranch?.length > path.length
+        ))) {
+            setInitialBranches()
+        }
 
         if (path.length === 1) {
-            const pathNode = index + 1
-
-            pathBranches.push([pathNode, firstBranch])
-
             break
         }
     }
@@ -42,39 +56,50 @@ function getInitialBranch(paths: number[][]): number[][] {
 function populateBranches({
     paths,
     branches,
-    branchIndex = 0
+    branchIndices = []
 }: {
     paths: number[][]
     branches: number[][]
-    branchIndex?: number
+    branchIndices?: number[]
 }) {
-    const branch = branches[branchIndex]
+    let indices: number[] = branchIndices
 
-    if (branch) {
-        const lastItem = branch[branch.length - 1]
-        const path = paths[lastItem - 1]
-    
-        for (const item of path) {
-            if (!branch.includes(item)) {
-                branches.push([...branch, item])
-    
-                populateBranches({
-                    paths,
-                    branches,
-                    branchIndex: branches.length - 1
-                })
-            }
-        }            
+    if (indices.length === 0) {
+        indices = [...branches.keys()]
     }
+
+    indices.forEach(branchIndex => {
+        const branch = branches[branchIndex]
+
+        if (branch) {
+            const lastItem = branch[branch.length - 1]
+            const path = paths[lastItem - 1]
+        
+            for (const item of path) {
+                if (!branch.includes(item)) {
+                    branches.push([...branch, item])
+        
+                    populateBranches({
+                        paths,
+                        branches,
+                        branchIndices: [branches.length - 1]
+                    })
+                }
+            }            
+        }
+    })
 }
 
 export default (n: number): number[] | false => {
     const paths = getRootsPaths(n)
-    const branches = getInitialBranch(paths)
+    const branches = getInitialBranches(paths)
 
-    populateBranches({ paths, branches })
+    populateBranches({
+        paths,
+        branches
+    })
 
     const [squareSumsRow] = branches.sort((a, b) => b.length - a.length)
 
-    return squareSumsRow || !!squareSumsRow
+    return squareSumsRow?.length === n && squareSumsRow
 }

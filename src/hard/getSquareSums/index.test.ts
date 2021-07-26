@@ -20,8 +20,6 @@ function getHavingValidSquareSums(sequence: number[] | false) {
 test('Get a valid square sum array or falsy output', () => {
     expect(
         getHavingValidSquareSums(
-            // expecting [9, 7, 2, 14, 11, 5, 4, 12, 13, 3, 6, 10, 15, 1, 8]
-            // ^^^ From getSquareSums(15)
             getSquareSums(15)
         )
     ).toBeTruthy()
@@ -33,10 +31,14 @@ test('Get a valid square sum array or falsy output', () => {
     ).toBeTruthy()
 
     expect(
-        // expecting undefined
-        // ^^^ From getSquareSums(1)
+        getHavingValidSquareSums(
+            getSquareSums(31)
+        )
+    ).toBeTruthy()
+
+    expect(
         getSquareSums(1)
     ).toBeFalsy()
 
-    expect(getSquareSums(14)).toBeTruthy()
+    expect(getSquareSums(14)).toBeFalsy()
 })
