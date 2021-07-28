@@ -121,5 +121,10 @@ export default (n: number): number[] | false => {
     ))
     const [squareSumsRow] = validSquareSumsRows
 
+    console.log(
+        "valid rows", validSquareSumsRows,
+        "right answers amount", validSquareSumsRows.length,
+    )
+
     return squareSumsRow?.length === n && squareSumsRow
 }

@@ -70,56 +70,57 @@ function getInitialBranches(paths: number[][]): number[][] {
     return pathBranches
 }
 
-function populateBranches({
-    paths,
-    branches,
-    branchIndices = []
-}: {
-    paths: number[][]
-    branches: number[][]
-    branchIndices?: number[]
-}) {
-    let indices: number[] = branchIndices
+function getBranches(paths: number[][]) {
+    const branches: number[][]  = []
 
-    if (indices.length === 0) {
-        indices = [...branches.keys()]
-    }
+    Object.keys(paths).forEach((pathKey: string) => {
+        const index = Number(pathKey)
+        const pathNode = index + 1
+        const path = paths[index]
 
-    indices.forEach(branchIndex => {
-        const branch = branches[branchIndex]
+        branches.push([
+            pathNode,
+            path[path.length - 1]
+        ])
 
-        if (branch) {
-            const lastItem = branch[branch.length - 1]
-            const path = paths[lastItem - 1]
+        const getCarryPath = () => paths[
+            branches[index][
+                branches[index].length - 1
+            ] - 1
+        ]
 
-            for (const item of path) {
-                if (!branch.includes(item)) {
-                    branches.push([...branch, item])
-        
-                    populateBranches({
-                        paths,
-                        branches,
-                        branchIndices: [branches.length - 1]
-                    })
+        // spin <<paths.length - 2>> times
+        for (let _ = 2; _ < paths.length; _++) {
+            // take the last element of each path
+            // ... that is not present in branches
+            for (let j = getCarryPath().length - 1; j >= 0; j--) {
+                if (!branches[index].includes(
+                    getCarryPath()[j]
+                )) {
+                    branches[index].push(getCarryPath()[j])
+
+                    break
                 }
-            }            
+            }
         }
     })
+
+    return branches
 }
 
 export default (n: number): number[] | false => {
     const paths = getRootsPaths(n)
-    const branches = getInitialBranches(paths)
-
-    populateBranches({
-        paths,
-        branches
-    })
+    const branches = getBranches(paths)
 
     const validSquareSumsRows = branches.filter(branch => (
         getHavingValidSquareSums(branch) && branch.length === n
     ))
     const [squareSumsRow] = validSquareSumsRows
 
-    return squareSumsRow?.length === n && squareSumsRow
+    console.log(
+        "paths", paths,
+        "\nbranches", branches
+    )
+
+    return squareSumsRow || false
 }

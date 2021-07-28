@@ -1,21 +1,4 @@
-import getSquareSums, {getHavingSquareRoot} from '.'
-
-function getHavingValidSquareSums(sequence: number[] | false) {
-    let havingValidSquareSums = false
-    
-    if (Array.isArray(sequence)) {
-        let [carry] = sequence
-
-        for (const item of sequence.slice(1)) {
-            havingValidSquareSums = getHavingSquareRoot(carry + item)
-            carry = item
-
-            if (!havingValidSquareSums) break
-        }
-    }
-
-    return havingValidSquareSums
-}
+import getSquareSums, {getHavingValidSquareSums} from '.'
 
 test('Get a valid square sum array or falsy output', () => {
     expect(
