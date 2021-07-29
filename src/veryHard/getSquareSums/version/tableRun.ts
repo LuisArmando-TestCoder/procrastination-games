@@ -37,39 +37,6 @@ function getRootsPaths(n: number): number[][] {
     return rootPaths
 }
 
-function getInitialBranches(paths: number[][]): number[][] {
-    const pathBranches: number[][] = []
-    // tomar el path más ´pequenño y su index + 1
-    for (let index = 0; index < paths.length; index++) {
-        const path = paths[index]
-        const pathNode = index + 1
-        const setInitialBranches = () => {
-            pathBranches.splice(0)            
-            path.forEach((branch, index) => {
-                pathBranches[index] = []
-                pathBranches[index][0] = pathNode
-                pathBranches[index][1] = branch
-            })
-        }
-
-        if (!pathBranches[0]) {
-            setInitialBranches()
-        }
-
-        if (pathBranches.some(pathBranch => (
-            pathBranch?.length > path.length
-        ))) {
-            setInitialBranches()
-        }
-
-        if (path.length === 1) {
-            break
-        }
-    }
-
-    return pathBranches
-}
-
 function getBranches(paths: number[][]) {
     const branches: number[][]  = []
 
@@ -88,20 +55,35 @@ function getBranches(paths: number[][]) {
                 branches[index].length - 1
             ] - 1
         ]
+        const setCarryPath = (j: number): boolean => {
+            const canBreak = !branches[index].includes(
+                getCarryPath()[j]
+            )
+
+            if (canBreak) {
+                branches[index].push(getCarryPath()[j])
+            }
+
+            return canBreak
+        }
 
         // spin <<paths.length - 2>> times
-        for (let _ = 2; _ < paths.length; _++) {
-            // take the last element of each path
-            // ... that is not present in branches
-            for (let j = getCarryPath().length - 1; j >= 0; j--) {
-                if (!branches[index].includes(
-                    getCarryPath()[j]
-                )) {
-                    branches[index].push(getCarryPath()[j])
-
-                    break
+        for (let pathIndex = 2; pathIndex < paths.length; pathIndex++) {
+            if (pathIndex < paths.length / 2) {
+                // pick upper half
+                for (let j = getCarryPath().length - 1; j >= 0; j--) {
+                // take the last element of each path
+                // ... that is not present in branches
+                    if (setCarryPath(j)) break
                 }
-            }
+            } else if (pathIndex >= Math.floor(paths.length / 2)) {
+                // pick lower half
+                for (let j = 0; j < getCarryPath().length; j++) {
+                    // take the first element of each path
+                    // ... that is not present in branches
+                    if (setCarryPath(j)) break
+                }
+            }            
         }
     })
 
@@ -118,7 +100,6 @@ export default (n: number): number[] | false => {
     const [squareSumsRow] = validSquareSumsRows
 
     console.log(
-        "paths", paths,
         "\nbranches", branches
     )
 
