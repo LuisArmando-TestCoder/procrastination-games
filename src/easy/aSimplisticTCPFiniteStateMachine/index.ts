@@ -23,7 +23,7 @@ type TSMEvent =
 | "RCV_FIN"
 | "RCV_FIN_ACK";
 
-const eventOutputs: {
+const stateMachine: {
   [index: string]: TSMState
 } = {
   "CLOSED -> APP_PASSIVE_OPEN": "LISTEN",
@@ -52,7 +52,7 @@ export default (eventList: TSMEvent[]) => {
   let state: TSMState | undefined = "CLOSED"; // initial state, always
 
   for (const event of eventList) {
-    state = eventOutputs[`${state as TSMState} -> ${event}`];
+    state = stateMachine[`${state as TSMState} -> ${event}`];
 
     if (!state) return "ERROR";
   }
